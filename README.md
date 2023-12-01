@@ -4,7 +4,7 @@ Welcome to the Student Management System project! This full-stack web applicatio
 
 ## Live Demo
 
-Check out the live demo of the Student Management System: [Live Demo](#) _(Insert your live demo link here)_
+Check out the live demo of the Student Management System: [Live Demo](#) _(https://student-management-application.netlify.app/)_
 
 ## Screenshots
 
