@@ -4,15 +4,15 @@ Welcome to the Student Management System project! This full-stack web applicatio
 
 ## Live Demo
 
-Check out the live demo of the Student Management System: [Live Demo](#) _(https://student-management-application.netlify.app/)_
+Check out the live demo of the Student Management System: (https://student-management-application.netlify.app/)
 
 ## Screenshots
 
-![Home Page](screenshots/home_page.png)
+![Home Page](https://drive.google.com/uc?id=1acvuN553VyS5Fbh24X0tPo8RWPJz-ZDb)
 
 *Fig. 1: Home Page - Add new student form and student records grid.*
 
-![Edit Student Page](screenshots/edit_student_page.png)
+![Edit Student Page](https://drive.google.com/uc?id=1Y4mHxepIHMPpY7DtDTok5JTWgd2WDs-g)
 
 *Fig. 2: Edit Student Page - Form to update details of an existing student.*
 
@@ -32,8 +32,8 @@ Check out the live demo of the Student Management System: [Live Demo](#) _(https
 
 ### Deployment
 
-1. **Deploy the Back-End:** Host your back-end application on a platform like [Railway](https://railway.app/) or [Netlify](https://www.netlify.com/). Ensure proper configuration.
-2. **Deploy the Front-End on Netlify:** Use [Netlify](https://www.netlify.com/) to deploy your front-end application. Link it to your back-end services.
+1. **Back-End Deployment:** Backend is hosted on Railway Platform. (https://studentmanagementsystem-production.up.railway.app/).
+2. **Front-End Deployment:** Frontend is deployed on Netlify.
 
 ## Technology Stack
 
