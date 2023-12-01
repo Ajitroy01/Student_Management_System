@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <h1>Welcome To Student Management System</h1>
+    <form class="form" id="create">
+      <p class="title">Add Student</p>
+      <div class="flex">
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required="true"
+            id="first"
+          />
+          <span>Firstname</span>
+        </label>
+
+        <label>
+          <input
+            class="input"
+            type="text"
+            placeholder=""
+            required="true"
+            id="last"
+          />
+          <span>Lastname</span>
+        </label>
+      </div>
+
+      <label>
+        <select id="gender">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
+        </select>
+      </label>
+
+      <label>
+        <input class="input" type="date" required="true" id="dob" />
+        <span id="dob-span">Date Of Birth</span>
+      </label>
+      <label>
+        <input
+          class="input"
+          type="text"
+          placeholder=""
+          required="true"
+          id="address"
+        />
+        <span>Address</span>
+      </label>
+      <button class="submit">Create</button>
+    </form>
+
+    <div class="container">
+      <h2>Student's List</h2>
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date Of Birth</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Enrollment Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const createForm = document.getElementById("create");
+
+      createForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const firstname = document.getElementById("first").value;
+        const lastname = document.getElementById("last").value;
+        const gender = document.getElementById("gender").value;
+        const dateOfBirth = document.getElementById("dob").value;
+        const address = document.getElementById("address").value;
+
+        const studentData = {
+          firstName: firstname,
+          lastName: lastname,
+          gender: gender,
+          dateOfBirth: dateOfBirth,
+          address: address,
+        };
+
+        fetch("http://localhost:9191/students/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(studentData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Created Student:", data);
+            alert("Student created successfully.");
+            createForm.reset();
+            fetchStudents();
+          })
+          .catch((error) => {
+            alert("Error creating student.");
+          });
+      });
+
+      function fetchStudents() {
+        fetch("http://localhost:9191/students/allStudents")
+          .then((response) => response.json())
+          .then((data) => {
+            const tbody = document.querySelector(".student-table tbody");
+            tbody.innerHTML = "";
+
+            data.forEach((student) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                          <td>${student.id}</td>
+                          <td>${student.firstName} ${student.lastName}</td>
+                          <td>${student.dateOfBirth}</td>
+                          <td>${student.gender}</td>
+                          <td>${student.address}</td>
+                          <td>${student.enrollmentDate}</td>
+                          <td>
+                              <button onclick="redirect()">Update</button>
+                              <button onclick="deleteStudent(${student.id})">Delete</button>
+                          </td>
+                      `;
+
+              tbody.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching students:", error);
+          });
+      }
+
+      fetchStudents();
+    });
+
+    function deleteStudent(studentId) {
+      const confirmation = confirm(
+        "Are you sure you want to delete this student?"
+      );
+
+      if (confirmation) {
+        fetch(`http://localhost:9191/students/delete?studentId=${studentId}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            console.log("Delete response:", response);
+            alert("Student deleted successfully.");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Error deleting student.");
+          });
+      }
+    }
+
+    function redirect() {
+      window.open("update.html");
+    }
+  </script>
+</html>
